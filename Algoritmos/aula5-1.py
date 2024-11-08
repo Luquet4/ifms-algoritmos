@@ -8,7 +8,6 @@ lista1.insert(7, 20) # escolhe onde quer inserir 1- elemento indice, 2-  element
  # primeira ocorrencia
 print(lista1) # index
 
-
 #funcoes
 
 print(len(lista1))
@@ -25,3 +24,15 @@ print(max(lista1))
 lista2 = [[1, 2], [3, 4]]
 
 print(lista2[1][0])
+
+for i in range(2):
+    for j in range(2):
+        print(lista2[i][j])
+        
+dias = ('Domingo', 'Sábado', 'Segunda', 'Terça') # tupla imutavel
+
+
+# keys() para pegar as chaves de dicionarios
+
+
+# values() para pegar os valores de cada chave do dicionario.
