@@ -203,3 +203,79 @@ def ex12():
         except Exception as e:
             limpar_tela()
             print(f"ERRO! {e}")
+
+
+def ex13():
+    alunos = [
+        {'nome': 'Lucas', 'notas': [7.5, 6, 9], 'media': 0}, 
+        {'nome': 'Alex', 'notas': [4.5, 8, 10], 'media': 0}, 
+        {'nome': 'Beto',  'notas': [7, 7, 5], 'media': 0},
+        {'nome': 'Laura',  'notas': [10, 10, 10], 'media': 0},
+        {'nome': 'Maria',  'notas': [1, 1, 1], 'media': 0},
+    ]
+
+    def calc_media():
+        media_alunos = []
+        for aluno in alunos:
+            notas = aluno['notas']
+            aluno['media'] = sum(notas) / len(notas) if notas else 0
+            media_alunos.append(aluno['media'])
+        return sum(media_alunos) / len(media_alunos) if media_alunos else 0
+
+    while True:
+        print("\n(Média com Notas Maiores que a Média)")
+        try:
+            resp = int(input("\nEscolha uma opção - \n1 - Adicionar aluno à lista \n2 - Editar aluno \n3 - Calcular médias \n"))
+            if resp == 1:
+                nome = input("\nDigite o nome do aluno: ")
+                alunos.append({'nome': nome, 'notas': [], 'media': 0})
+                for i in range(1, 4):
+                    nota = float(input(f"\nDigite a '{i}°' nota do(a) {nome}: "))
+                    alunos[-1]['notas'].append(nota)
+            elif resp == 2:
+                nome_al = input("\nDigite o nome do aluno que deseja editar: ").lower()
+                editar_al = [aluno for aluno in alunos if nome_al == aluno['nome'].lower()]
+                
+                if editar_al:
+                    print("\nAlunos encontrados:")
+                    for indice, aluno in enumerate(editar_al, start=1):
+                        print(f"{indice}. Nome: {aluno['nome']}, Notas atuais: {aluno['notas']}")
+
+                    escolha = int(input("\nDigite o número do aluno que deseja editar: "))
+                    
+                    if 1 <= escolha <= len(editar_al):
+                        aluno_escolhido = editar_al[escolha - 1]
+                        print(f"\nEditando notas para {aluno_escolhido['nome']}")
+                        aluno_escolhido['notas'].clear()
+                        
+                        for i in range(1, 4):
+                            nota = float(input(f"\nDigite a '{i}°' nota: "))
+                            aluno_escolhido['notas'].append(nota)
+                        print(f"\nNovas notas de {aluno_escolhido['nome']} - notas: {aluno_escolhido['notas']}")
+                    else:
+                        print("\nOpção inválida!")
+                else:
+                    print("\nNenhum aluno encontrado com esse nome.")
+            elif resp == 3:
+                media_geral = calc_media()
+                print(f"\nA média geral dos alunos é: {media_geral:.2f}")
+                
+                media_acima = [aluno for aluno in alunos if aluno['media'] > media_geral]
+                media_abaixo = [aluno for aluno in alunos if aluno['media'] <= media_geral]
+                
+                print("\nAlunos com média acima da média geral:")
+                for aluno in media_acima:
+                    print(f"{aluno['nome']} - Média: {aluno['media']:.2f}")
+                
+                print("\nAlunos com média abaixo ou igual à média geral:")
+                for aluno in media_abaixo:
+                    print(f"{aluno['nome']} - Média: {aluno['media']:.2f}")
+            if not resposta_usuario():
+                break
+        except Exception as e:
+            limpar_tela()
+            print(f"ERRO! {e}")
+
+
+
+ex13()
