@@ -1,9 +1,27 @@
 import os
 
+def pedir_num(mensagem="Digite um número: ", type=int):
+    while True:
+        try:
+            num = type(input(mensagem))  
+            return num
+        except Exception as e:
+            limpar_tela(erro=str(e))
+            print("Digite um número válido.")
+
+def pedir_texto(mensagem="Digite uma palavra ou Frase: "):
+    while True:
+        try:
+            plv = input(mensagem)
+            if plv:
+                return plv
+            print("Digite uma palavra ou frase somente.")
+        except Exception as e:
+            limpar_tela(erro=str(e))
 
 def resposta_usuario():
     while True:
-        resposta = int(input("Deseja realizar o script novamente? Digite 1 para Sim ou 2 para Não: "))
+        resposta = pedir_num("Deseja realizar o script novamente? Digite 1 para Sim ou 2 para Não: ", type=int)
         if resposta == 1:
             limpar_tela()
             return True
@@ -13,29 +31,32 @@ def resposta_usuario():
         else:
             print("Opção inválida! Digite 1 para Sim ou 2 para Não.")
 
-def limpar_tela():
+def limpar_tela(erro=None):
     os.system('cls' if os.name == 'nt' else 'clear')
+    if erro:
+        print(f"Erro! {erro}")
+
 
 def ex1():
     while True:
         print("(Calculadora de Soma Simples) Receba dois números do usuário e exiba a soma deles.")
         try:
-            n1 = float(input("\nDigite um número: "))
-            n2 = float(input("Digite outro número: "))
+            n1 = pedir_num("Digite o primeiro número: ", type=int)
+            n2 = pedir_num("Digite o segundo número: ", type=int)
             soma = n1+n2
             print(f"A soma dos números digitados é {soma}")
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"Erro! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex2():
     while True:
         print("(Verificador de Número Par ou Ímpar) Peça ao usuário um número inteiro e informe se ele é par ou ímpar.")
         try:
-            n1 = int(input("\nDigite um número inteiro: "))
-            print("Verificando se o número é impar ou par...")
+            n1 = pedir_num("\nDigite um número inteiro: ", type=int)
+            print("Verificando se o número é impar ou par...", type=int)
             res = n1 % 2
             if res == 0:
                 print(f"O número {n1} é par!")
@@ -44,82 +65,82 @@ def ex2():
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex3():
     while True:
         print("(Conversor de Temperatura) Receba uma temperatura em graus Celsius e converta para Fahrenheit usando a fórmula:")
         try:
-            temp1 = float(input("\nDigite uma temperatura em grau Celsius: "))
+            temp1 = pedir_num("\nDigite uma temperatura em grau Celsius: ", type=float)
             res = temp1 * 1.8 + 32
             print(f"A temperatura digitada {temp1} em Fahrenheit é {res}")
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex4():
     while True:
         print("(Contador de Caracteres em uma Palavra) Solicite uma palavra do usuário e exiba quantos caracteres ela possui.")
         try:
-            plv = input("\nDigite uma palavra: ").strip()
+            plv = pedir_texto("\nDigite uma palavra: ").strip()
             cont = len(plv)
             print(f"A palavra digitada tem {cont} letras.")
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 def ex5():
     while True:
         print("(Gerador de Tabuada) Receba um número inteiro e exiba a tabuada dele (multiplicações de 1 a 10).")
         try:
-            n1 = int(input("\nDigite um número Inteiro para ver sua tabuada do 1-10: "))
+            n1 = pedir_num("\nDigite um número Inteiro para ver sua tabuada do 1-10: ", type=int)
             for i in range(1, 11):
                 result = n1*i
                 print(f"Tabuada - {n1} x {i} = {result}")
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex6():
     while True:
         print("(Cálculo de Média Aritmética) Peça três notas de um aluno e calcule a média aritmética delas.")
         try:
-         n1 = int(input("\nDigite a nota 1: "))
-         n2 = int(input("Digite a nota 2: "))
-         n3 = int(input("Digite a nota 3: "))
-         media = n1+n2+n3 / 3
-         print(f"A média aritmética das notas é {media}")
-         if not resposta_usuario():
+            notas = []
+            for i in range(1, 4):
+                num = pedir_num(f"Digite a {i}° nota: ", type=float)
+                notas.append(num)
+            media = sum(notas) / len(notas)
+            print(f"A média aritmética das notas é {media:2f}")
+            if not resposta_usuario():
                 break  
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex7():
     while True:
         print("(Inversor de String) Receba uma palavra e exiba-a invertida")
         try:
-            plv = input("\nDigite uma palavra: ")
-            res = "".join(reversed(plv))
-            print(f"\nA palavra {plv} invertida é {res}")
+            plv = pedir_texto("\nDigite uma palavra: ")
+            print(f"\nA palavra {plv} invertida é {plv[::-1]}")
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex8():
     while True:
         print("(Contagem de Números em uma Lista) Dada uma lista de números, exiba quantos números ela contém.")
         try:
             lista = []
-            resp = int(input("\nDigite um range para inserir na lista: "))
+            resp = pedir_num("\nDigite um range para inserir na lista: ", type=int)
             print("\nInserindo números na lista...")
             for i in range(resp):
                 lista.append(i)
@@ -128,15 +149,15 @@ def ex8():
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex9():
     while True:
         print("(Verificador de Maioridade) Peça a idade do usuário e informe se ele é maior de idade (18 anos ou mais) ou menor de idade.")
         try:
-            nome = input("\nDigite seu nome: ")
-            idd = int(input("\nDigite sua idade: "))
+            nome = pedir_texto("\nDigite seu nome: ")
+            idd = pedir_num("\nDigite sua idade: ", type=int)
             if idd >= 18:
                 print(f"\n{nome}, você tem {idd} anos e é maior de idade!")
             else:
@@ -144,34 +165,31 @@ def ex9():
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex10():
     while True:
         print("(Calculadora de Área de Retângulo) Receba a base e a altura de um retângulo e exiba a área dele usando a fórmula.")
         try:
-            base = float(input("\nDigite o valor da base do retângulo: "))
-            altura = float(input("\nDigite o valor da altura do retângulo: "))
+            base = pedir_num("\nDigite o valor da base do retângulo: ", type=float)
+            altura = pedir_num("\nDigite o valor da altura do retângulo: ", type=float)
             area = base*altura
             print(f"A área do retângulo é {area}")
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex11():
     while True:
         print("(Contador de Palavras Únicas) Peça ao usuário uma frase e, em seguida, conte quantas palavras únicas ela possui (sem considerar maiúsculas e minúsculas).")
         try:
-            frase = input("\nDigite uma frase: ")
-            palavras = frase.lower().split()
-
-            palavras_unicas = set(palavras)
-
+            frase = pedir_texto("\nDigite uma frase: ").lower().split()
+            palavras_unicas = set(frase)
             for palavra in palavras_unicas:
-                contagem = palavras.count(palavra)
+                contagem = frase.count(palavra)
                 if contagem == 1:
                     print(f"\nA palavra '{palavra}' é única na frase!")
                 else:
@@ -179,15 +197,15 @@ def ex11():
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 def ex12():
     while True:
         print("(Números Primos em um Intervalo) Receba um intervalo de números do usuário (por exemplo, entre 10 e 50) e retorne uma lista com todos os números primos dentro desse intervalo.")
         try:
-            n1 = int(input("Digite o valor inicial: "))
-            n2 = int(input("Digite o valor final: "))
+            n1 = pedir_num("Digite o valor inicial: ", type=int)
+            n2 = pedir_num("Digite o valor final: ", type=int)
             lista_primos = []
             for i in range(n1, n2 + 1):
                 mult = 0
@@ -201,8 +219,8 @@ def ex12():
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 
 def ex13():
@@ -214,26 +232,20 @@ def ex13():
         {'nome': 'Maria',  'notas': [1, 1, 1], 'media': 0},
     ]
 
-    def calc_media():
-        media_alunos = []
-        for aluno in alunos:
-            notas = aluno['notas']
-            aluno['media'] = sum(notas) / len(notas) if notas else 0
-            media_alunos.append(aluno['media'])
-        return sum(media_alunos) / len(media_alunos) if media_alunos else 0
+    media_alunos = []
 
     while True:
         print("\n(Média com Notas Maiores que a Média)")
         try:
-            resp = int(input("\nEscolha uma opção - \n1 - Adicionar aluno à lista \n2 - Editar aluno \n3 - Calcular médias \n"))
+            resp = pedir_num("\nEscolha uma opção - \n1 - Adicionar aluno à lista \n2 - Editar aluno \n3 - Calcular médias \n", type=int)
             if resp == 1:
-                nome = input("\nDigite o nome do aluno: ")
+                nome = pedir_texto("\nDigite o nome do aluno: ")
                 alunos.append({'nome': nome, 'notas': [], 'media': 0})
                 for i in range(1, 4):
-                    nota = float(input(f"\nDigite a '{i}°' nota do(a) {nome}: "))
+                    nota = pedir_num(f"\nDigite a '{i}°' nota do(a) {nome}: ", type=float)
                     alunos[-1]['notas'].append(nota)
             elif resp == 2:
-                nome_al = input("\nDigite o nome do aluno que deseja editar: ").lower()
+                nome_al = pedir_texto("\nDigite o nome do aluno que deseja editar: ").lower()
                 editar_al = [aluno for aluno in alunos if nome_al == aluno['nome'].lower()]
                 
                 if editar_al:
@@ -241,7 +253,7 @@ def ex13():
                     for indice, aluno in enumerate(editar_al, start=1):
                         print(f"{indice}. Nome: {aluno['nome']}, Notas atuais: {aluno['notas']}")
 
-                    escolha = int(input("\nDigite o número do aluno que deseja editar: "))
+                    escolha = pedir_num("\nDigite o número do aluno que deseja editar: ", type=int)
                     
                     if 1 <= escolha <= len(editar_al):
                         aluno_escolhido = editar_al[escolha - 1]
@@ -249,7 +261,7 @@ def ex13():
                         aluno_escolhido['notas'].clear()
                         
                         for i in range(1, 4):
-                            nota = float(input(f"\nDigite a '{i}°' nota: "))
+                            nota = pedir_num(f"\nDigite a '{i}°' nota: ", type=float)
                             aluno_escolhido['notas'].append(nota)
                         print(f"\nNovas notas de {aluno_escolhido['nome']} - notas: {aluno_escolhido['notas']}")
                     else:
@@ -257,9 +269,13 @@ def ex13():
                 else:
                     print("\nNenhum aluno encontrado com esse nome.")
             elif resp == 3:
-                media_geral = calc_media()
+                for aluno in alunos:
+                    notas = aluno['notas']
+                    aluno['media'] = sum(notas) / len(notas) if notas else 0
+                    media_alunos.append(aluno['media'])
+                    media_geral = sum(media_alunos) / len(media_alunos) if media_alunos else 0
+
                 print(f"\nA média geral dos alunos é: {media_geral:.2f}")
-                
                 media_acima = [aluno for aluno in alunos if aluno['media'] > media_geral]
                 media_abaixo = [aluno for aluno in alunos if aluno['media'] <= media_geral]
                 
@@ -273,8 +289,8 @@ def ex13():
             if not resposta_usuario():
                 break
         except Exception as e:
-            limpar_tela()
-            print(f"ERRO! {e}")
+            limpar_tela(erro=str(e))
+            
 
 
 
