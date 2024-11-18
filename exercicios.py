@@ -640,3 +640,6 @@ def navegar_exercicios():
                 print("Número de exercício inválido!.")
         except ValueError:
             print("Digite um número válido.")
+
+
+navegar_exercicios()
