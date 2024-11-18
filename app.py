@@ -1,2 +1,3 @@
-import os
-import exercicios as e
+from exercicios import *
+
+navegar_exercicios()
